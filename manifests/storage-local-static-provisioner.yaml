@@ -81,10 +81,6 @@ spec:
             - mountPath: /pv-disks
               name: local-storage
               mountPropagation: "Bidirectional"
-      volumes:
-        - name: pv-disks
-          hostPath:
-            path: /pv-disks
       containers:
         - image: "quay.io/external_storage/local-volume-provisioner:v2.3.3"
           name: provisioner
