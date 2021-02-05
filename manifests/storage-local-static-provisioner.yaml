@@ -70,10 +70,10 @@ spec:
     spec:
       serviceAccountName: local-storage-admin
       nodeSelector:
-        kubernetes.azure.com/aks-local-ssd: "true"
+        agentpool: "thorpool"
       initContainers:
         - name: aks-nvme-ssd-provisioner
-          image: ams0/aks-nvme-ssd-provisioner:v1.0.2
+          image: stevegriffith/aks-nvme-ssd-provisioner:v1.0.0
           imagePullPolicy: Always
           securityContext:
             privileged: true

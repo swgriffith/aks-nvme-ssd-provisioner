@@ -47,9 +47,9 @@ case $SSD_NVME_DEVICE_COUNT in
 esac
 
 UUID=$(blkid -s UUID -o value $DEVICE)
-mkdir -p /pv-disks/$UUID
-mount -o defaults,noatime,discard,nobarrier --uuid $UUID /pv-disks/$UUID
-echo "Device $DEVICE has been mounted to /pv-disks/$UUID"
+mkdir -p /pv-disks/nvme
+mount -o defaults,noatime,discard,nobarrier --uuid $UUID /pv-disks/nvme
+echo "Device $DEVICE has been mounted to /pv-disks/nvme"
 echo "NVMe SSD provisioning is done and I will go to sleep now"
 
 #sleep infinity
