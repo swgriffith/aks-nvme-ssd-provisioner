@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-SSD_NVME_DEVICE_LIST=$(ls /sys/block | grep nvme | xargs -I. echo /dev/. || true)
+SSD_NVME_DEVICE_LIST=($(ls /sys/block | grep nvme | xargs -I. echo /dev/. || true))
 SSD_NVME_DEVICE_COUNT=${#SSD_NVME_DEVICE_LIST[@]}
 RAID_DEVICE=${RAID_DEVICE:-/dev/md0}
 RAID_CHUNK_SIZE=${RAID_CHUNK_SIZE:-512}  # Kilo Bytes
@@ -30,7 +30,7 @@ case $SSD_NVME_DEVICE_COUNT in
   exit 1
   ;;
 "1")
-  mkfs.ext4 -m 0 -b $FILESYSTEM_BLOCK_SIZE $SSD_NVME_DEVICE_LIST
+  for dev in "${SSD_NVME_DEVICE_LIST[@]}"; do mkfs.ext4 -m 0 -b $FILESYSTEM_BLOCK_SIZE $dev; done
   DEVICE=$SSD_NVME_DEVICE_LIST
   ;;
 *)
