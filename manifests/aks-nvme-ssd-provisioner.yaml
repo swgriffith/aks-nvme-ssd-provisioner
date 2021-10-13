@@ -16,11 +16,16 @@ spec:
     spec:
       automountServiceAccountToken: false
       nodeSelector:
-        agentpool: "thorpool"
+        agentpool: thorpool
+      tolerations:
+      - key: "nvme"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
       priorityClassName: system-node-critical
       containers:
         - name: aks-nvme-ssd-provisioner
-          image: stevegriffith/aks-nvme-ssd-provisioner:v1.0.0
+          image: stevegriffith/aks-nvme-ssd-provisioner:v1.1.0
           imagePullPolicy: Always
           securityContext:
             privileged: true
